@@ -28,7 +28,7 @@
 			<roles>
 				<role>original author</role>
 			</roles>
-		</developer>		
+		</developer>
 	</developers>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -453,6 +453,11 @@
 					<type>range</type>
 					<range>30</range>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.6.0</version>
 			</plugin>
 		</plugins>
 	</reporting>
