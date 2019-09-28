@@ -49,12 +49,10 @@ public final class ModelSanityTest extends Assert {
 	/** The Constant EXPECT_CLASSES_IN_PACKAGE. */
 	private static final String EXPECT_CLASSES_IN_PACKAGE = "Expect classes in package";
 
-	
 	@Test
 	public void modelTest() {
 
-		assertTrue(EXPECT_CLASSES_IN_PACKAGE,
-				checkAllClassesInPackage( ModelSanityTest.class.getPackage().getName()));
+		assertTrue(EXPECT_CLASSES_IN_PACKAGE, checkAllClassesInPackage(ModelSanityTest.class.getPackage().getName()));
 
 	}
 
@@ -64,9 +62,9 @@ public final class ModelSanityTest extends Assert {
 
 		final Validator validator = ValidatorBuilder.create().with(new SetterMustExistRule(), new GetterMustExistRule())
 				.with(new SetterTester(), new GetterTester()).with(new InvokeToStringTester())
-				.with(new InvokeHashcodeTester()).with(new DummyEqualsTester()).with(new EqualsAndHashCodeMatchRule()).build();
+				.with(new InvokeHashcodeTester()).with(new DummyEqualsTester()).with(new EqualsAndHashCodeMatchRule())
+				.build();
 		validator.validate(pojoClassesRecursively);
-
 
 		return true;
 	}
@@ -105,8 +103,8 @@ public final class ModelSanityTest extends Assert {
 
 			Affirm.affirmFalse("EqualsCompareNullFailure", instance.equals(null));
 			Affirm.affirmFalse("EqualsCompareWrongClassFailure", instance.equals("WrongClass"));
-			Affirm.affirmTrue("EqualsCompareSelfFailure", instance.equals(instance));			
-			
+			Affirm.affirmTrue("EqualsCompareSelfFailure", instance.equals(instance));
+
 			final Object instance2 = randomValues(pojoClass);
 
 			instance.equals(instance2);

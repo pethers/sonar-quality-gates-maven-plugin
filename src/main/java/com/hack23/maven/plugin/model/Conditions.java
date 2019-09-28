@@ -5,21 +5,20 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Conditions
-{
-    private String op;
+public final class Conditions {
+	private String op;
 
-    private String period;
+	private String period;
 
-    private String metric;
+	private String metric;
 
-    private String level;
+	private String level;
 
-    private String error;
-    
-    private String actual;
+	private String error;
 
-    public String getActual() {
+	private String actual;
+
+	public String getActual() {
 		return actual;
 	}
 
@@ -27,55 +26,45 @@ public class Conditions
 		this.actual = actual;
 	}
 
-	public String getOp ()
-    {
-        return op;
-    }
+	public String getOp() {
+		return op;
+	}
 
-    public void setOp (final String op)
-    {
-        this.op = op;
-    }
+	public void setOp(final String op) {
+		this.op = op;
+	}
 
-    public String getPeriod ()
-    {
-        return period;
-    }
+	public String getPeriod() {
+		return period;
+	}
 
-    public void setPeriod (final String period)
-    {
-        this.period = period;
-    }
+	public void setPeriod(final String period) {
+		this.period = period;
+	}
 
-    public String getMetric ()
-    {
-        return metric;
-    }
+	public String getMetric() {
+		return metric;
+	}
 
-    public void setMetric (final String metric)
-    {
-        this.metric = metric;
-    }
+	public void setMetric(final String metric) {
+		this.metric = metric;
+	}
 
-    public String getLevel ()
-    {
-        return level;
-    }
+	public String getLevel() {
+		return level;
+	}
 
-    public void setLevel (final String level)
-    {
-        this.level = level;
-    }
+	public void setLevel(final String level) {
+		this.level = level;
+	}
 
-    public String getError ()
-    {
-        return error;
-    }
+	public String getError() {
+		return error;
+	}
 
-    public void setError (final String error)
-    {
-        this.error = error;
-    }
+	public void setError(final String error) {
+		this.error = error;
+	}
 
 	@Override
 	public final String toString() {
@@ -83,9 +72,9 @@ public class Conditions
 	}
 
 	@Override
-    public boolean equals(final Object object) {
-    	return EqualsBuilder.reflectionEquals(this,object);
-    }
+	public boolean equals(final Object object) {
+		return EqualsBuilder.reflectionEquals(this, object);
+	}
 
 	@Override
 	public final int hashCode() {
