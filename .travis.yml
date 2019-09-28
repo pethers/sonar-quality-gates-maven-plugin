@@ -1,12 +1,46 @@
+dist: bionic
 language: java
-
-jdk:
-  - oraclejdk8
-
+sudo: true
+install: true
 before_install:
-  - sudo apt-get install jq
-  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
+  - sudo apt-get install -y ca-certificates-java ca-certificates wget openjdk-11-jdk-headless
+addons:
+  sonarcloud:
+    organization: "hack23"
+    github_token: "$GITHUB_TOKEN"
+  apt:
+    packages:
+      - graphviz
+      - locales
+      - tzdata
+env:
+  global:
+    - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+    - PGPORT=5433
+    
+cache:
+  directories:
+  - $HOME/.m2
 
+before_script:
+  - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+  - export DEBIAN_FRONTEND=noninteractive
+  - sudo rm /etc/localtime
+  - sudo ln -s /usr/share/zoneinfo/Europe/Stockholm /etc/localtime 
+  - sudo dpkg-reconfigure -f noninteractive tzdata 
+  - sudo echo 'LANG=\"en_US.UTF-8\"' | sudo tee --append /etc/default/locale
+  - sudo locale-gen en_US.UTF-8 en_GB.UTF-8 sv_SE.UTF-8 
+  - sudo dpkg-reconfigure --frontend=noninteractive locales
+
+script:
+  - wget http://apache.mirrors.spacedump.net/maven/maven-3/3.6.2/binaries/apache-maven-3.6.2-bin.tar.gz
+  - tar xzvf apache-maven-3.6.2-bin.tar.gz
+  - export PATH=`pwd`/apache-maven-3.6.2/bin:$PATH
+  - mvn -v
+  - mvn clean install -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dhttps.protocols=TLSv1.2
+  - mvn sonar:sonar -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dhttps.protocols=TLSv1.2
+ 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report
-  - java -cp ~/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
+  - bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)
+  - fossa init
+  - fossa analyze
