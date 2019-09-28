@@ -1,5 +1,10 @@
 package com.hack23.maven.plugin.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Conditions
 {
     private String op;
@@ -18,7 +23,7 @@ public class Conditions
 		return actual;
 	}
 
-	public void setActual(String actual) {
+	public void setActual(final String actual) {
 		this.actual = actual;
 	}
 
@@ -27,7 +32,7 @@ public class Conditions
         return op;
     }
 
-    public void setOp (String op)
+    public void setOp (final String op)
     {
         this.op = op;
     }
@@ -37,7 +42,7 @@ public class Conditions
         return period;
     }
 
-    public void setPeriod (String period)
+    public void setPeriod (final String period)
     {
         this.period = period;
     }
@@ -47,7 +52,7 @@ public class Conditions
         return metric;
     }
 
-    public void setMetric (String metric)
+    public void setMetric (final String metric)
     {
         this.metric = metric;
     }
@@ -57,7 +62,7 @@ public class Conditions
         return level;
     }
 
-    public void setLevel (String level)
+    public void setLevel (final String level)
     {
         this.level = level;
     }
@@ -67,14 +72,23 @@ public class Conditions
         return error;
     }
 
-    public void setError (String error)
+    public void setError (final String error)
     {
         this.error = error;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Condition [op = "+op+", period = "+period+", metric = "+metric+", level = "+level+", error = "+error+"]";
+	@Override
+	public final String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	@Override
+    public boolean equals(final Object object) {
+    	return EqualsBuilder.reflectionEquals(this,object);
     }
+
+	@Override
+	public final int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
 }

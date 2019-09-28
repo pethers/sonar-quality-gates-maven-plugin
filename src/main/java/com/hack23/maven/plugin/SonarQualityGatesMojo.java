@@ -51,8 +51,8 @@ public class SonarQualityGatesMojo extends AbstractMojo {
     }
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        MavenProject topLevelProject = session.getTopLevelProject();
-        List<Measures> events = retrieveSonarMeasures(format(SONAR_API_URL, getSonarHostUrl(topLevelProject.getProperties()), getSonarKey(topLevelProject)));
+        final MavenProject topLevelProject = session.getTopLevelProject();
+        final List<Measures> events = retrieveSonarMeasures(format(SONAR_API_URL, getSonarHostUrl(topLevelProject.getProperties()), getSonarKey(topLevelProject)));
 
         if (events.isEmpty()) {
             throw new MojoExecutionException("\nno matching project in sonarqube for project key:" + getSonarKey(topLevelProject));
@@ -61,11 +61,11 @@ public class SonarQualityGatesMojo extends AbstractMojo {
         if (!events.isEmpty() && !events.get(0).getValue().equals("OK")) {
         	
 			try {
-				QualityGateValue qualityGateValue = new ObjectMapper().readValue(events.get(1).getValue(), QualityGateValue.class);
-		       	StringBuilder builder = new StringBuilder();
+				final QualityGateValue qualityGateValue = new ObjectMapper().readValue(events.get(1).getValue(), QualityGateValue.class);
+		       	final StringBuilder builder = new StringBuilder();
 	        	builder.append("\nFailed quality gate\n");
-	        	ArrayList<Conditions> conditions = qualityGateValue.getConditions();
-	        	for (Conditions condition : conditions) {
+	        	final ArrayList<Conditions> conditions = qualityGateValue.getConditions();
+	        	for (final Conditions condition : conditions) {
 					if (!condition.getLevel().equals("OK")) {
 						builder.append(condition);
 						builder.append("\n");
@@ -74,17 +74,17 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 	        	
 	            throw new MojoExecutionException(builder.toString());
 
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				new MojoFailureException("",e);
 			}
         	
          }
     }
 
-    private List<Measures> retrieveSonarMeasures(String url) throws MojoFailureException {
+    private List<Measures> retrieveSonarMeasures(final String url) throws MojoFailureException {
         try {
-            HttpResponse<String> response = Unirest.get(url).asString();
-            String body = response.getBody();
+            final HttpResponse<String> response = Unirest.get(url).asString();
+            final String body = response.getBody();
 
             if (response.getStatus() != STATUS_CODE_OK) {
                 throw new MojoFailureException(MessageFormat.format("Attempt to call Sonarqube responded with an error status :{0} : for url:{1} : response{2}: ",response.getStatus(), url, body)) ;
@@ -98,7 +98,7 @@ public class SonarQualityGatesMojo extends AbstractMojo {
         }
     }
 
-    private String getSonarHostUrl(Properties properties) {
+    private String getSonarHostUrl(final Properties properties) {
         if (sonarHostUrl != null) {
             return sonarHostUrl;
         }
@@ -106,7 +106,7 @@ public class SonarQualityGatesMojo extends AbstractMojo {
         return properties.containsKey(SONAR_HOST_URL) ? properties.getProperty(SONAR_HOST_URL) : SONAR_DEFAULT_HOST_URL;
     }
 
-    private String getSonarKey(MavenProject pom) {
+    private String getSonarKey(final MavenProject pom) {
         if (pom.getModel().getProperties().containsKey(SONAR_PROJECT_KEY)) {
             return pom.getModel().getProperties().getProperty(SONAR_PROJECT_KEY);
         }
@@ -117,7 +117,7 @@ public class SonarQualityGatesMojo extends AbstractMojo {
     private void shutdown() throws MojoFailureException {
         try {
             Unirest.shutdown();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MojoFailureException("Could not properly shutdown", e);
         }
     }
