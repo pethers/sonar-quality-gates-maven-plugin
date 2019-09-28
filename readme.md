@@ -18,6 +18,7 @@ Fork of https://github.com/slam-it/sonar-quality-gates-maven-plugin, added suppo
 [![Lines of Code](https://www.hack23.com/sonar/api/project_badges/measure?project=com.hack23.maven%3Asonar-quality-gates-maven-plugin&metric=ncloc)](https://www.hack23.com/sonar/dashboard?id=com.hack23.maven%3Asonar-quality-gates-maven-plugin)
 [![SonarQube Tech Debt](https://www.hack23.com/sonar/api/badges/measure?key=com.hack23.maven%3Asonar-quality-gates-maven-plugin&metric=sqale_debt_ratio)](https://www.hack23.com/sonar/component_measures?id=com.hack23.maven%3Asonar-quality-gates-maven-plugin)
 [![Quality Gate](https://www.hack23.com/sonar/api/project_badges/measure?project=com.hack23.maven%3Asonar-quality-gates-maven-plugin&metric=alert_status)](https://www.hack23.com/sonar/dashboard?id=com.hack23.maven%3Asonar-quality-gates-maven-plugin)
+[![Black Duck Security Risk](https://copilot.blackducksoftware.com/github/repos/Hack23/sonar-quality-gates-maven-plugin/branches/master/badge-risk.svg)](https://copilot.blackducksoftware.com/github/repos/Hack23/sonar-quality-gates-maven-plugin/branches/master)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FHack23%2Fsonar-quality-gates-maven-plugin.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FHack23%2Fsonar-quality-gates-maven-plugin?ref=badge_shield)
 
 # Runtime
