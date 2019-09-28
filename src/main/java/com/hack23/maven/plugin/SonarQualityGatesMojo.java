@@ -78,7 +78,7 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 				throw new MojoExecutionException(builder.toString());
 
 			} catch (final IOException e) {
-				new MojoFailureException("", e);
+				throw new MojoFailureException("", e);
 			}
 
 		}
