@@ -4,7 +4,7 @@
 
 	<groupId>com.hack23.maven</groupId>
 	<artifactId>sonar-quality-gates-maven-plugin</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>maven-plugin</packaging>
 	<name>sonar-quality-gates-maven-plugin</name>
 	<url>https://github.com/Hack23/sonar-quality-gates-maven-plugin</url>
@@ -85,7 +85,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/Hack23/sonar-quality-gates-maven-plugin.git</connection>
 		<developerConnection>scm:git:https://github.com/Hack23/sonar-quality-gates-maven-plugin.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>sonar-quality-gates-maven-plugin-1.0.0</tag>
 		<url>https://github.com/Hack23/sonar-quality-gates-maven-plugin</url>
 	</scm>
 	<issueManagement>
