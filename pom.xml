@@ -46,6 +46,7 @@
 		<junit.version>4.13-beta-3</junit.version>
 		<maven.version>3.5.0</maven.version>
 		<maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
+		<maven-plugin-testing-harness.version>3.3.0</maven-plugin-testing-harness.version>
 		<unirest-java.version>1.4.9</unirest-java.version>
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 	</properties>
@@ -144,6 +145,18 @@
 			<version>4.13-beta-3</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-testing</groupId>
+            <artifactId>maven-plugin-testing-harness</artifactId>
+            <version>${maven-plugin-testing-harness.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-compat</artifactId>
+            <version>${maven.version}</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.openpojo</groupId>
 			<artifactId>openpojo</artifactId>

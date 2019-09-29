@@ -37,19 +37,19 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 
 	/** The Constant COLON. */
 	private static final String COLON = ":";
-	
+
 	/** The Constant SONAR_API_URL. */
 	private static final String SONAR_API_URL = "%s/api/measures/search?projectKeys=%s&metricKeys=alert_status,quality_gate_details";
-	
+
 	/** The Constant SONAR_DEFAULT_HOST_URL. */
 	private static final String SONAR_DEFAULT_HOST_URL = "http://localhost:9000";
-	
+
 	/** The Constant SONAR_HOST_URL. */
 	private static final String SONAR_HOST_URL = "sonar.host.url";
-	
+
 	/** The Constant SONAR_PROJECT_KEY. */
 	private static final String SONAR_PROJECT_KEY = "sonar.projectKey";
-	
+
 	/** The Constant STATUS_CODE_OK. */
 	private static final int STATUS_CODE_OK = 200;
 
@@ -73,22 +73,22 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 	 * Execute.
 	 *
 	 * @throws MojoExecutionException the mojo execution exception
-	 * @throws MojoFailureException the mojo failure exception
+	 * @throws MojoFailureException   the mojo failure exception
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		final MavenProject topLevelProject = session.getTopLevelProject();
-		final List<Measures> events = retrieveSonarMeasures(
+		final List<Measures> measures = retrieveSonarMeasures(
 				format(SONAR_API_URL, getSonarHostUrl(topLevelProject.getProperties()), getSonarKey(topLevelProject)));
 
-		if (events.isEmpty()) {
+		if (measures.isEmpty()) {
 			throw new MojoExecutionException(
 					"\nno matching project in sonarqube for project key:" + getSonarKey(topLevelProject));
 		}
 
-		if (!events.isEmpty() && !events.get(0).getValue().equals("OK")) {
+		if (!measures.isEmpty() && !measures.get(0).getValue().equals("OK")) {
 
 			try {
-				final QualityGateValue qualityGateValue = new ObjectMapper().readValue(events.get(1).getValue(),
+				final QualityGateValue qualityGateValue = new ObjectMapper().readValue(measures.get(1).getValue(),
 						QualityGateValue.class);
 				final StringBuilder builder = new StringBuilder();
 				builder.append("\nFailed quality gate\n");
@@ -103,7 +103,7 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 				throw new MojoExecutionException(builder.toString());
 
 			} catch (final IOException e) {
-				throw new MojoFailureException("", e);
+				throw new MojoFailureException("Failed to execute mojo", e);
 			}
 
 		}
