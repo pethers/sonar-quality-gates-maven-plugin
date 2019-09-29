@@ -2,6 +2,7 @@ package com.hack23.maven.plugin;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 import java.util.Scanner;
 
@@ -82,12 +83,16 @@ public class SonarQualityGatesMojoTest {
 
 	
 	@Test
-	public void sonarProjectKeyPropertyTest() throws MojoFailureException, MojoExecutionException {
+	public void sonarProjectKeyPropertyTest() throws MojoFailureException, MojoExecutionException, Exception, SecurityException {
 		sonarEventHandler.setResponse(200, getResponse("passedqualitygate.json"));
 		project.getProperties().put("sonar.projectKey", "com.hack23.maven:test-property");
 
+		
+		Field f1 = mojo.getClass().getDeclaredField("sonarHostUrl");
+		f1.setAccessible(true);
+		f1.set(mojo, "http://localhost:" + server.getAddress().getPort());
+		
 		mojo.execute();
-
 	}
 
 	@Test
