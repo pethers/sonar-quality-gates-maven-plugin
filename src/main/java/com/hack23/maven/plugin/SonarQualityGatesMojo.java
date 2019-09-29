@@ -85,7 +85,7 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 					"\nno matching project in sonarqube for project key:" + getSonarKey(topLevelProject));
 		}
 
-		if (!measures.isEmpty() && !measures.get(0).getValue().equals("OK")) {
+		if (!measures.get(0).getValue().equals("OK")) {
 
 			try {
 				final QualityGateValue qualityGateValue = new ObjectMapper().readValue(measures.get(1).getValue(),

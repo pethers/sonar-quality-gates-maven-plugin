@@ -88,7 +88,7 @@ public class SonarQualityGatesMojoTest {
 		project.getProperties().put("sonar.projectKey", "com.hack23.maven:test-property");
 
 		
-		Field f1 = mojo.getClass().getDeclaredField("sonarHostUrl");
+		final Field f1 = mojo.getClass().getDeclaredField("sonarHostUrl");
 		f1.setAccessible(true);
 		f1.set(mojo, "http://localhost:" + server.getAddress().getPort());
 		
