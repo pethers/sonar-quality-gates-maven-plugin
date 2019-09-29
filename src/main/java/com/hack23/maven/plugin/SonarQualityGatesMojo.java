@@ -29,27 +29,52 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+/**
+ * The Class SonarQualityGatesMojo.
+ */
 @Mojo(name = "inspect")
 public class SonarQualityGatesMojo extends AbstractMojo {
 
+	/** The Constant COLON. */
 	private static final String COLON = ":";
+	
+	/** The Constant SONAR_API_URL. */
 	private static final String SONAR_API_URL = "%s/api/measures/search?projectKeys=%s&metricKeys=alert_status,quality_gate_details";
+	
+	/** The Constant SONAR_DEFAULT_HOST_URL. */
 	private static final String SONAR_DEFAULT_HOST_URL = "http://localhost:9000";
+	
+	/** The Constant SONAR_HOST_URL. */
 	private static final String SONAR_HOST_URL = "sonar.host.url";
+	
+	/** The Constant SONAR_PROJECT_KEY. */
 	private static final String SONAR_PROJECT_KEY = "sonar.projectKey";
+	
+	/** The Constant STATUS_CODE_OK. */
 	private static final int STATUS_CODE_OK = 200;
 
+	/** The session. */
 	@Parameter(defaultValue = "${session}", readonly = true)
 	private MavenSession session;
 
+	/** The sonar host url. */
 	@Parameter(property = SONAR_HOST_URL)
 	private String sonarHostUrl;
 
+	/**
+	 * Instantiates a new sonar quality gates mojo.
+	 */
 	@Inject
 	public SonarQualityGatesMojo() {
 		setHttpClient(createDefault());
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @throws MojoExecutionException the mojo execution exception
+	 * @throws MojoFailureException the mojo failure exception
+	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		final MavenProject topLevelProject = session.getTopLevelProject();
 		final List<Measures> events = retrieveSonarMeasures(
@@ -84,6 +109,13 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 		}
 	}
 
+	/**
+	 * Retrieve sonar measures.
+	 *
+	 * @param url the url
+	 * @return the list
+	 * @throws MojoFailureException the mojo failure exception
+	 */
 	private List<Measures> retrieveSonarMeasures(final String url) throws MojoFailureException {
 		try {
 			final HttpResponse<String> response = Unirest.get(url).asString();
@@ -103,6 +135,12 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 		}
 	}
 
+	/**
+	 * Gets the sonar host url.
+	 *
+	 * @param properties the properties
+	 * @return the sonar host url
+	 */
 	private String getSonarHostUrl(final Properties properties) {
 		if (sonarHostUrl != null) {
 			return sonarHostUrl;
@@ -111,6 +149,12 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 		return properties.containsKey(SONAR_HOST_URL) ? properties.getProperty(SONAR_HOST_URL) : SONAR_DEFAULT_HOST_URL;
 	}
 
+	/**
+	 * Gets the sonar key.
+	 *
+	 * @param pom the pom
+	 * @return the sonar key
+	 */
 	private String getSonarKey(final MavenProject pom) {
 		if (pom.getModel().getProperties().containsKey(SONAR_PROJECT_KEY)) {
 			return pom.getModel().getProperties().getProperty(SONAR_PROJECT_KEY);
@@ -119,6 +163,11 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 		return pom.getGroupId() + COLON + pom.getArtifactId();
 	}
 
+	/**
+	 * Shutdown.
+	 *
+	 * @throws MojoFailureException the mojo failure exception
+	 */
 	private void shutdown() throws MojoFailureException {
 		try {
 			Unirest.shutdown();
