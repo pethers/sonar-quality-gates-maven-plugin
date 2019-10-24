@@ -11,7 +11,9 @@ pipeline {
 	   stage('Build') {
 	      steps {
 	         sh "mvn clean install site"
-	         sh "cp target/site/jacoco/jacoco.xml target/site/jacoco-aggregate/jacoco.xml"
+	         sh "rm -rf target/site/jacoco-aggregate"
+	         sh "rm -rf target/site/jacoco-ut"
+	         sh "rm -rf target/site/jacoco-it"	         
 	      }
 	        post {
                 always {
