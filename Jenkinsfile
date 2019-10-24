@@ -12,12 +12,29 @@ pipeline {
 	      steps {
 	         sh "mvn clean install site"
 	      }
+	        post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                    
+                    jacoco( 
+				      execPattern: 'target/*.exec',
+				      classPattern: 'target/classes',
+				      sourcePattern: 'src/main/java',
+				      exclusionPattern: 'src/test*'
+				   )
+                    
+                }
+            }
 	   }
 	   
 
 	   stage('Vulnerability Check') {
+	   	  tools { 
+    	    jdk 'Java8' 
+	       }
+	   
 	      steps {
-	         sh "mvn org.owasp:dependency-check-maven:5.2.1:check -Dformat=ALL"
+	         sh "mvn org.owasp:dependency-check-maven:5.2.2:check -Dformat=ALL"
 	      }
 	   }
 
