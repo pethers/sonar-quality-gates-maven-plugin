@@ -61,6 +61,12 @@ public class SonarQualityGatesMojo extends AbstractMojo {
 	@Parameter(property = SONAR_HOST_URL)
 	private String sonarHostUrl;
 
+	public void testnocoverage() {
+		int a = 1;
+		int b = 2;		
+		int sum = a +b;
+	}
+	
 	/**
 	 * Instantiates a new sonar quality gates mojo.
 	 */
