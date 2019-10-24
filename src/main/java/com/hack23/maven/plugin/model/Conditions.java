@@ -1,80 +1,154 @@
 package com.hack23.maven.plugin.model;
 
-public class Conditions
-{
-    private String op;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-    private String period;
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Conditions.
+ */
+public final class Conditions {
+	
+	/** The op. */
+	private String op;
 
-    private String metric;
+	/** The period. */
+	private String period;
 
-    private String level;
+	/** The metric. */
+	private String metric;
 
-    private String error;
-    
-    private String actual;
+	/** The level. */
+	private String level;
 
-    public String getActual() {
+	/** The error. */
+	private String error;
+
+	/** The actual. */
+	private String actual;
+
+	/**
+	 * Gets the actual.
+	 *
+	 * @return the actual
+	 */
+	public String getActual() {
 		return actual;
 	}
 
-	public void setActual(String actual) {
+	/**
+	 * Sets the actual.
+	 *
+	 * @param actual the new actual
+	 */
+	public void setActual(final String actual) {
 		this.actual = actual;
 	}
 
-	public String getOp ()
-    {
-        return op;
-    }
+	/**
+	 * Gets the op.
+	 *
+	 * @return the op
+	 */
+	public String getOp() {
+		return op;
+	}
 
-    public void setOp (String op)
-    {
-        this.op = op;
-    }
+	/**
+	 * Sets the op.
+	 *
+	 * @param op the new op
+	 */
+	public void setOp(final String op) {
+		this.op = op;
+	}
 
-    public String getPeriod ()
-    {
-        return period;
-    }
+	/**
+	 * Gets the period.
+	 *
+	 * @return the period
+	 */
+	public String getPeriod() {
+		return period;
+	}
 
-    public void setPeriod (String period)
-    {
-        this.period = period;
-    }
+	/**
+	 * Sets the period.
+	 *
+	 * @param period the new period
+	 */
+	public void setPeriod(final String period) {
+		this.period = period;
+	}
 
-    public String getMetric ()
-    {
-        return metric;
-    }
+	/**
+	 * Gets the metric.
+	 *
+	 * @return the metric
+	 */
+	public String getMetric() {
+		return metric;
+	}
 
-    public void setMetric (String metric)
-    {
-        this.metric = metric;
-    }
+	/**
+	 * Sets the metric.
+	 *
+	 * @param metric the new metric
+	 */
+	public void setMetric(final String metric) {
+		this.metric = metric;
+	}
 
-    public String getLevel ()
-    {
-        return level;
-    }
+	/**
+	 * Gets the level.
+	 *
+	 * @return the level
+	 */
+	public String getLevel() {
+		return level;
+	}
 
-    public void setLevel (String level)
-    {
-        this.level = level;
-    }
+	/**
+	 * Sets the level.
+	 *
+	 * @param level the new level
+	 */
+	public void setLevel(final String level) {
+		this.level = level;
+	}
 
-    public String getError ()
-    {
-        return error;
-    }
+	/**
+	 * Gets the error.
+	 *
+	 * @return the error
+	 */
+	public String getError() {
+		return error;
+	}
 
-    public void setError (String error)
-    {
-        this.error = error;
-    }
+	/**
+	 * Sets the error.
+	 *
+	 * @param error the new error
+	 */
+	public void setError(final String error) {
+		this.error = error;
+	}
 
-    @Override
-    public String toString()
-    {
-        return "Condition [op = "+op+", period = "+period+", metric = "+metric+", level = "+level+", error = "+error+"]";
-    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	@Override
+	public boolean equals(final Object object) {
+		return EqualsBuilder.reflectionEquals(this, object);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
 }

@@ -1,48 +1,93 @@
 package com.hack23.maven.plugin.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * The Class Measures.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Measures {
-	  private String component;
+public final class Measures {
+	
+	/** The component. */
+	private String component;
 
-	    private String metric;
+	/** The metric. */
+	private String metric;
 
-	    private String value;
+	/** The value. */
+	private String value;
 
-	    public String getComponent ()
-	    {
-	        return component;
-	    }
+	/**
+	 * Gets the component.
+	 *
+	 * @return the component
+	 */
+	public String getComponent() {
+		return component;
+	}
 
-	    public void setComponent (String component)
-	    {
-	        this.component = component;
-	    }
+	/**
+	 * Sets the component.
+	 *
+	 * @param component the new component
+	 */
+	public void setComponent(final String component) {
+		this.component = component;
+	}
 
-	    public String getMetric ()
-	    {
-	        return metric;
-	    }
+	/**
+	 * Gets the metric.
+	 *
+	 * @return the metric
+	 */
+	public String getMetric() {
+		return metric;
+	}
 
-	    public void setMetric (String metric)
-	    {
-	        this.metric = metric;
-	    }
+	/**
+	 * Sets the metric.
+	 *
+	 * @param metric the new metric
+	 */
+	public void setMetric(final String metric) {
+		this.metric = metric;
+	}
 
-	    public String getValue ()
-	    {
-	        return value;
-	    }
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
+	public String getValue() {
+		return value;
+	}
 
-	    public void setValue (String value)
-	    {
-	        this.value = value;
-	    }
+	/**
+	 * Sets the value.
+	 *
+	 * @param value the new value
+	 */
+	public void setValue(final String value) {
+		this.value = value;
+	}
 
-	    @Override
-	    public String toString()
-	    {
-	        return "[component = "+component+", metric = "+metric+", value = "+value+"]";
-	    }
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	@Override
+	public boolean equals(final Object object) {
+		return EqualsBuilder.reflectionEquals(this, object);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
 }
